@@ -111,7 +111,7 @@ def draw_once():
 # メッセージ
 # -------------------------
 
-ALLOWED_CHANNEL_ID = 1384429202882826372
+ALLOWED_CHANNEL_ID = 1384451716308537384
 
 
 @client.event
