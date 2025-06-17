@@ -110,6 +110,10 @@ def draw_once():
 # -------------------------
 # メッセージ
 # -------------------------
+
+ALLOWED_CHANNEL_ID = 1384429202882826372
+
+
 @client.event
 async def on_ready():
     print(f'Bot起動完了: {client.user.name}')
@@ -117,6 +121,9 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author == client.user:
+        return
+    
+    if message.channel.id != ALLOWED_CHANNEL_ID:
         return
 
     content = message.content.strip()
