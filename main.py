@@ -6,6 +6,22 @@ import re
 from collections import defaultdict
 from dotenv import load_dotenv
 
+from flask import Flask
+from threading import Thread
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "I am alive!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
@@ -171,4 +187,5 @@ async def on_message(message):
         await message.channel.send(f"{message.author.display_name}さんの結果（10回分）：\n" + "\n".join(results))
         await message.channel.send(f"-----------------{summary}\n ----------------- \n コマンド一覧:   ! → ガチャ10回   !!! → 記録リセット")
 
+keep_alive()
 client.run(TOKEN)
