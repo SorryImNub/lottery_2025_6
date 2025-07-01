@@ -13,17 +13,17 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "I am alive!"
+    return "hello George"
 
 def run():
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=8080) #基本はこのポート
 
 def keep_alive():
     t = Thread(target=run)
     t.start()
 
 load_dotenv()
-TOKEN = os.getenv("DISCORD_TOKEN")
+TOKEN = os.getenv("DISCORD_TOKEN")　# Discordのbotトークンはサーバー起動時に別途組み合わせる
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -85,7 +85,7 @@ def sort_result_entries(result):
 def rare_draw():
     roll = random.random()
     if roll < 0.0001:
-        return "<:1_:1384384404318584832>"
+        return "<:1_:1384384404318584832>"　# sサーバー絵文字
     elif roll < 0.0003:
         return "<:2_:1384384416318492682>"
     elif roll < 0.0005:
@@ -111,7 +111,7 @@ def draw_once():
 # メッセージ
 # -------------------------
 
-ALLOWED_CHANNEL_ID = 1384451716308537384
+ALLOWED_CHANNEL_ID = "input the channel ID" # botがメッセージ送信を行うチャンネルを指定
 
 
 @client.event
@@ -169,7 +169,7 @@ async def on_message(message):
 
         total_gold_record = 0
         for k, v in record.items():
-            # ゴールドなら数値で加算（絵文字以外のラベルもあるので注意）
+            # ゴールドなら数値で加算する（絵文字以外のラベルもあるので注意）
             if any(str(g["label"]) == k for g in loot_table):
                 value = next((g["value"] for g in loot_table if g["label"] == k), 0)
                 total_gold_record += value * v
